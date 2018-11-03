@@ -6,11 +6,22 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: [
+    // 'path/to/sass',
+    './src/index.js'
+  ],
   output: {
     filename: 'bundle.js',
     path: __dirname + '/dist/js'
   },
+  
+  devServer: {
+    contentBase: path.join(__dirname, '/dist'),
+    compress: true,
+    port: 9000,
+    overlay: true // показывать ошибки в браузере
+  },
+  
   watch: true,
 
   devtool: "source-map",

@@ -60,7 +60,7 @@ h4 {
   font-family: 'Circe Extra Bold', sans-serif;
 }
 .p15 {
-  font-size: 1.5;
+  font-size: 1.5rem;
 }
 .p-heading {
   font-size: 2.2rem;
@@ -199,7 +199,7 @@ h4 {
   padding: 2rem;
 }
 .header .burger-menu li:hover {
-  backgrund-color: #eed4d2;
+  background-color: #eed4d2;
 }
 .header .burger-menu li a {
   color: inherit;
@@ -847,7 +847,7 @@ h4 {
   position: absolute;
   bottom: -3rem;
   left: 15rem;
-  z-index: 1000000;
+  z-index: 10;
 }
 .feedback-block .button-order:before {
   content: '';
@@ -1141,7 +1141,7 @@ h4 {
 .popup-design input[name="name"] {
   margin-top: 2rem;
 }
-.popup-design .file_uploa {
+.popup-design .file_upload {
   position: relative;
   overflow: hidden;
   font-size: 1em;
@@ -1153,19 +1153,19 @@ h4 {
   line-height: 2em /* the same as height */
 ;
 }
-.popup-design .file_uploa > button {
+.popup-design .file_upload > button {
   float: right;
   width: 8em;
   /* example */
 
   height: 100%;
 }
-.popup-design .file_uploa > div {
+.popup-design .file_upload > div {
   padding-left: 1em;
   /* example */
 
 }
-.popup-design .file_uploa input[type=file] {
+.popup-design .file_upload input[type=file] {
   position: absolute;
   left: 0;
   top: 0;
@@ -1181,7 +1181,7 @@ h4 {
   opacity: 0;
   cursor: pointer;
 }
-.popup-design .file_uploa > button {
+.popup-design .file_upload > button {
   transition: background 0.2s;
   border-radius: 50px;
   overflow: hidden;
@@ -1193,7 +1193,7 @@ h4 {
   border: 2px dashed #c51abb;
   padding: 1.5rem;
 }
-.popup-design .file_uploa > button:before {
+.popup-design .file_upload > button:before {
   content: '';
   background: url("../img/camera.svg") no-repeat center;
   width: 1.6rem;
@@ -1267,10 +1267,10 @@ h4 {
   .calc .file_upload > button {
     width: 100%;
   }
-  .popup-design .file_uploa > div {
+  .popup-design .file_upload > div {
     display: none;
   }
-  .popup-design .file_uploa > button {
+  .popup-design .file_upload > button {
     width: 100%;
   }
   .main .file_uplo > div {
@@ -1574,7 +1574,7 @@ h4 {
     font-size: 1.5rem;
   }
   .main-features {
-    max-width: auto;
+    /*max-width: auto;*/
     margin-left: 20%;
   }
   .main-slider-btn {
