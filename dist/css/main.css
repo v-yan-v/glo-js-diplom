@@ -930,6 +930,7 @@ h4 {
   position: absolute;
   bottom: 0;
   right: 5%;
+  z-index: -1;
 }
 .often-questions .spirt {
   position: absolute;
