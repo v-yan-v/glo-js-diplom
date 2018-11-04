@@ -415,6 +415,31 @@ module.exports = function (exec) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/modules/_flags.js":
+/*!************************************************!*\
+  !*** ./node_modules/core-js/modules/_flags.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// 21.2.5.3 get RegExp.prototype.flags
+var anObject = __webpack_require__(/*! ./_an-object */ "./node_modules/core-js/modules/_an-object.js");
+module.exports = function () {
+  var that = anObject(this);
+  var result = '';
+  if (that.global) result += 'g';
+  if (that.ignoreCase) result += 'i';
+  if (that.multiline) result += 'm';
+  if (that.unicode) result += 'u';
+  if (that.sticky) result += 'y';
+  return result;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/modules/_for-of.js":
 /*!*************************************************!*\
   !*** ./node_modules/core-js/modules/_for-of.js ***!
@@ -1955,6 +1980,59 @@ $export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(/*! ./_iter-
 
 /***/ }),
 
+/***/ "./node_modules/core-js/modules/es6.regexp.flags.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/core-js/modules/es6.regexp.flags.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 21.2.5.3 get RegExp.prototype.flags()
+if (__webpack_require__(/*! ./_descriptors */ "./node_modules/core-js/modules/_descriptors.js") && /./g.flags != 'g') __webpack_require__(/*! ./_object-dp */ "./node_modules/core-js/modules/_object-dp.js").f(RegExp.prototype, 'flags', {
+  configurable: true,
+  get: __webpack_require__(/*! ./_flags */ "./node_modules/core-js/modules/_flags.js")
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/es6.regexp.to-string.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/core-js/modules/es6.regexp.to-string.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+__webpack_require__(/*! ./es6.regexp.flags */ "./node_modules/core-js/modules/es6.regexp.flags.js");
+var anObject = __webpack_require__(/*! ./_an-object */ "./node_modules/core-js/modules/_an-object.js");
+var $flags = __webpack_require__(/*! ./_flags */ "./node_modules/core-js/modules/_flags.js");
+var DESCRIPTORS = __webpack_require__(/*! ./_descriptors */ "./node_modules/core-js/modules/_descriptors.js");
+var TO_STRING = 'toString';
+var $toString = /./[TO_STRING];
+
+var define = function (fn) {
+  __webpack_require__(/*! ./_redefine */ "./node_modules/core-js/modules/_redefine.js")(RegExp.prototype, TO_STRING, fn, true);
+};
+
+// 21.2.5.14 RegExp.prototype.toString()
+if (__webpack_require__(/*! ./_fails */ "./node_modules/core-js/modules/_fails.js")(function () { return $toString.call({ source: 'a', flags: 'b' }) != '/a/b'; })) {
+  define(function toString() {
+    var R = anObject(this);
+    return '/'.concat(R.source, '/',
+      'flags' in R ? R.flags : !DESCRIPTORS && R instanceof RegExp ? $flags.call(R) : undefined);
+  });
+// FF44- RegExp#toString has a wrong name
+} else if ($toString.name != TO_STRING) {
+  define(function toString() {
+    return $toString.call(this);
+  });
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/modules/web.dom.iterable.js":
 /*!**********************************************************!*\
   !*** ./node_modules/core-js/modules/web.dom.iterable.js ***!
@@ -2039,6 +2117,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_chekAndSendForm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/chekAndSendForm */ "./src/js/chekAndSendForm.js");
 /* harmony import */ var _js_gift__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/gift */ "./src/js/gift.js");
 /* harmony import */ var _js_moreStylesBlocks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/moreStylesBlocks */ "./src/js/moreStylesBlocks.js");
+/* harmony import */ var _js_calc__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./js/calc */ "./src/js/calc.js");
+
 
 
 
@@ -2054,7 +2134,68 @@ document.addEventListener('DOMContentLoaded', function () {
   Object(_js_chekAndSendForm__WEBPACK_IMPORTED_MODULE_3__["checkSendForm"])();
   Object(_js_gift__WEBPACK_IMPORTED_MODULE_4__["gift"])();
   Object(_js_moreStylesBlocks__WEBPACK_IMPORTED_MODULE_5__["moreStylesBlock"])();
+  Object(_js_calc__WEBPACK_IMPORTED_MODULE_6__["mainCalc"])();
 });
+
+/***/ }),
+
+/***/ "./src/js/calc.js":
+/*!************************!*\
+  !*** ./src/js/calc.js ***!
+  \************************/
+/*! exports provided: mainCalc */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mainCalc", function() { return mainCalc; });
+/* harmony import */ var core_js_modules_es6_regexp_to_string__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es6.regexp.to-string */ "./node_modules/core-js/modules/es6.regexp.to-string.js");
+/* harmony import */ var core_js_modules_es6_regexp_to_string__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_regexp_to_string__WEBPACK_IMPORTED_MODULE_0__);
+
+
+
+function mainCalc() {
+  var sizeSelect = document.getElementById('size'),
+      materialSelect = document.getElementById('material'),
+      optionsSelect = document.getElementById('options'),
+      calcForm = sizeSelect.parentElement,
+      calcPrice = calcForm.getElementsByClassName('calc-price')[0],
+      promoField = calcForm.getElementsByClassName('promocode')[0];
+  var prices = {
+    sizePrice: [1000, 2000, 3000, 4000],
+    material: [3000, 1000, 2000],
+    options: [2000, 3000, 1000]
+  };
+  var totalSum = 0;
+  calcForm.dispatchEvent(new Event('reset'));
+
+  function calc() {
+    if (sizeSelect.selectedIndex > 0 && materialSelect.selectedIndex > 0) {
+      totalSum = prices.sizePrice[sizeSelect.selectedIndex - 1] + prices.material[materialSelect.selectedIndex - 1];
+
+      if (optionsSelect.selectedIndex > 0) {
+        totalSum += prices.options[optionsSelect.selectedIndex - 1];
+      }
+
+      if (promoField.value.trim().toUpperCase() === 'IWANTPOPART') {
+        totalSum *= 0.7;
+      }
+
+      calcPrice.textContent = totalSum.toString();
+    } else {
+      calcPrice.textContent = 'Для расчета нужно выбрать размер картины и материал картины';
+    }
+  }
+
+  calcForm.addEventListener('change', function (evt) {
+    if (evt.target.tagName === 'SELECT') {
+      calc();
+    }
+  });
+  promoField.addEventListener('input', function () {
+    calc();
+  });
+}
 
 /***/ }),
 

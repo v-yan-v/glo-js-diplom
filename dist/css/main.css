@@ -465,6 +465,7 @@ h4 {
   position: absolute;
   bottom: -25rem;
   left: 0;
+  z-index: -1;
 }
 .card-block {
   background-color: #f7e7e6;
@@ -504,22 +505,23 @@ h4 {
 .calc select {
   opacity: 0.6;
   font-family: 'Circe Extra Bold', sans-serif;
-  margin-left: 4rem;
   appearance: none;
   border: none;
   display: block;
   font-size: 1.9rem;
   padding: 2rem 0;
+  width: 100%;
 }
 .calc .promocode {
   opacity: 0.6;
   font-family: 'Circe Extra Bold', sans-serif;
-  margin-left: 4rem;
   appearance: none;
   border: none;
   display: block;
   font-size: 1.9rem;
-  padding: 2rem 0;
+  padding: 2rem 1rem;
+  width: 100%;
+  text-align: center;
 }
 .calc #size {
   margin-top: 3rem;
@@ -531,6 +533,8 @@ h4 {
   text-align: center;
   position: relative;
   z-index: -1000;
+  font-size: 2.5rem;
+  font-weight: bold;
 }
 .calc .button-order {
   margin-top: 6rem;
@@ -925,6 +929,7 @@ h4 {
   position: absolute;
   top: -25rem;
   left: 0;
+  z-index: -1;
 }
 .promo-3 {
   background-color: #f7e7e6;
@@ -1394,7 +1399,8 @@ h4 {
   }
   .calc select {
     position: relative;
-    left: 30%;
+    left: 25%;
+    max-width: 55%;
   }
   .calc .button-transparent {
     margin: 4rem auto;
@@ -1614,11 +1620,6 @@ h4 {
   }
   .calc h2 {
     margin-bottom: 4rem;
-  }
-  .calc select {
-    left: 0;
-    margin: 0;
-    padding: 1rem;
   }
   .calc-price {
     margin-top: 2rem;
