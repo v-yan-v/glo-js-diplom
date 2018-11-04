@@ -2118,6 +2118,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_gift__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/gift */ "./src/js/gift.js");
 /* harmony import */ var _js_moreStylesBlocks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/moreStylesBlocks */ "./src/js/moreStylesBlocks.js");
 /* harmony import */ var _js_calc__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./js/calc */ "./src/js/calc.js");
+/* harmony import */ var _js_portfolioFilter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./js/portfolioFilter */ "./src/js/portfolioFilter.js");
+
 
 
 
@@ -2135,6 +2137,7 @@ document.addEventListener('DOMContentLoaded', function () {
   Object(_js_gift__WEBPACK_IMPORTED_MODULE_4__["gift"])();
   Object(_js_moreStylesBlocks__WEBPACK_IMPORTED_MODULE_5__["moreStylesBlock"])();
   Object(_js_calc__WEBPACK_IMPORTED_MODULE_6__["mainCalc"])();
+  Object(_js_portfolioFilter__WEBPACK_IMPORTED_MODULE_7__["portfolioFilter"])();
 });
 
 /***/ }),
@@ -2490,6 +2493,62 @@ function orderDesign() {
       form.addEventListener('input', _validateTelInput__WEBPACK_IMPORTED_MODULE_1__["validateTelInput"]);
       form.addEventListener('submit', _onSubmit__WEBPACK_IMPORTED_MODULE_2__["onSubmit"]);
     });
+  });
+}
+
+/***/ }),
+
+/***/ "./src/js/portfolioFilter.js":
+/*!***********************************!*\
+  !*** ./src/js/portfolioFilter.js ***!
+  \***********************************/
+/*! exports provided: portfolioFilter */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "portfolioFilter", function() { return portfolioFilter; });
+/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0__);
+
+
+
+function portfolioFilter() {
+  var portfolioSection = document.getElementById('portfolio'),
+      portfolioBlocks = portfolioSection.getElementsByClassName('portfolio-block'),
+      portfolioMenu = portfolioSection.getElementsByClassName('portfolio-menu')[0],
+      portfolioMenuItems = portfolioMenu.getElementsByTagName('LI'); // console.log(elem);
+
+  portfolioMenu.addEventListener('click', function (evt) {
+    if (evt.target.tagName === 'LI') {
+      [].forEach.call(portfolioMenuItems, function (elem) {
+        if (elem === evt.target) {
+          if (evt.target.classList.contains('active')) {
+            /*do nothing if click in now active*/
+            return;
+          }
+
+          if (elem.classList.value === 'grandmother' || elem.classList.value === 'granddad') {
+            portfolioBlocks[0].parentElement.style.display = 'none';
+            portfolioSection.getElementsByClassName('portfolio-no')[0].style.display = 'block';
+          } else {
+            portfolioBlocks[0].parentElement.style.display = '';
+            portfolioSection.getElementsByClassName('portfolio-no')[0].style.display = '';
+          }
+
+          [].forEach.call(portfolioBlocks, function (item) {
+            if (item.classList.contains(elem.classList.value)) {
+              item.style.display = '';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+          elem.classList.add('active');
+        } else {
+          elem.classList.remove('active');
+        }
+      });
+    }
   });
 }
 

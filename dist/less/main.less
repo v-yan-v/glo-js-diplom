@@ -265,22 +265,22 @@ h1, h2, h3, h4 {
 .main {
   background-color: @pink-bg;
   padding-top: 3rem;
-  .file_uplo {
+  .file_upload {
     position: relative;
     overflow: hidden;
     font-size: 1em; /* example */
     height: 4em; /* example */
     line-height: 2em /* the same as height */
   }
-  .file_uplo > button {
+  .file_upload > button {
     float: right;
     width: 8em; /* example */
     height: 100%
   }
-  .file_uplo > div {
+  .file_upload > div {
     padding-left: 1em; /* example */
   }
-  .file_uplo input[type=file] {
+  .file_upload input[type=file] {
     position: absolute;
     left: 0;
     top: 0;
@@ -295,7 +295,7 @@ h1, h2, h3, h4 {
 
   /* Making it beautiful */
 
-  .file_uplo > button {
+  .file_upload > button {
     transition: background 0.2s;
     border-radius: 50px;
     overflow: hidden;
@@ -419,6 +419,10 @@ h1, h2, h3, h4 {
   }
   &-next-btn {
     right: 0;
+  }
+
+  &-slider-item img{
+    width: 100%;
   }
 }
 
@@ -661,6 +665,7 @@ h1, h2, h3, h4 {
 
 .portfolio {
   padding-top: 8rem;
+  margin-bottom: 30px;
   h2, .p-heading {
     text-align: center;
   }
@@ -918,6 +923,9 @@ h1, h2, h3, h4 {
         position: relative;
         top: 0.4rem;
       }
+    }
+    img{
+      max-width: 100%;
     }
   }
   &-heading {
@@ -1304,10 +1312,10 @@ h1, h2, h3, h4 {
   }
 
   .main {
-    .file_uplo > div {
+    .file_upload > div {
       display: none
     }
-    .file_uplo > button {
+    .file_upload > button {
       width: 100%
     }
 
@@ -1522,7 +1530,7 @@ h1, h2, h3, h4 {
       justify-content: space-around;
     }
     &-block {
-      width: auto;
+      width: 40%;
     }
   }
 
@@ -1798,7 +1806,7 @@ h1, h2, h3, h4 {
 
   .portfolio {
     &-block {
-      width: auto;
+      width: 40%;
     }
     ul {
       margin-top: 3rem;

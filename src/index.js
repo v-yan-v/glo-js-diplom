@@ -6,6 +6,7 @@ import {checkSendForm} from "./js/chekAndSendForm";
 import {gift} from "./js/gift";
 import {moreStylesBlock} from "./js/moreStylesBlocks";
 import {mainCalc} from "./js/calc";
+import {portfolioFilter} from "./js/portfolioFilter";
 
 document.addEventListener('DOMContentLoaded', ()=>{
   mainSlider();
@@ -15,4 +16,5 @@ document.addEventListener('DOMContentLoaded', ()=>{
   gift();
   moreStylesBlock();
   mainCalc();
+  portfolioFilter();
 });
