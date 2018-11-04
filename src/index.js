@@ -4,6 +4,7 @@ import {orderDesign} from "./js/orderDesign";
 import {orderConsultation} from "./js/orderConsultation";
 import {checkSendForm} from "./js/chekAndSendForm";
 import {gift} from "./js/gift";
+import {moreStylesBlock} from "./js/moreStylesBlocks";
 
 document.addEventListener('DOMContentLoaded', ()=>{
   mainSlider();
@@ -11,4 +12,5 @@ document.addEventListener('DOMContentLoaded', ()=>{
   orderConsultation();
   checkSendForm();
   gift();
+  moreStylesBlock();
 });

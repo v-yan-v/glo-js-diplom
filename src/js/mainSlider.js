@@ -5,7 +5,7 @@ export function  mainSlider (){
   let i=0;
   
   [].forEach.call(sliderItems, (el,c)=>{
-    el.classList.add('slideInDown', 'animated');
+    el.classList.add('fadeInDown', 'animated');
     if (c !== 0){
       el.style.display = 'none';
     }
