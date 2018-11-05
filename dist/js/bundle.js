@@ -2261,6 +2261,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_calc__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./js/calc */ "./src/js/calc.js");
 /* harmony import */ var _js_portfolioFilter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./js/portfolioFilter */ "./src/js/portfolioFilter.js");
 /* harmony import */ var _js_onSizeBlocksHover__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./js/onSizeBlocksHover */ "./src/js/onSizeBlocksHover.js");
+/* harmony import */ var _js_feedBackSlider__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./js/feedBackSlider */ "./src/js/feedBackSlider.js");
+
 
 
 
@@ -2282,6 +2284,7 @@ document.addEventListener('DOMContentLoaded', function () {
   Object(_js_calc__WEBPACK_IMPORTED_MODULE_6__["mainCalc"])();
   Object(_js_portfolioFilter__WEBPACK_IMPORTED_MODULE_7__["portfolioFilter"])();
   Object(_js_onSizeBlocksHover__WEBPACK_IMPORTED_MODULE_8__["onSizeBlocksHover"])();
+  Object(_js_feedBackSlider__WEBPACK_IMPORTED_MODULE_9__["feedBackSlider"])();
 });
 
 /***/ }),
@@ -2369,6 +2372,65 @@ function checkSendForm() {
   [].forEach.call(document.forms, function (el) {
     el.addEventListener('input', _validateTelInput__WEBPACK_IMPORTED_MODULE_1__["validateTelInput"]);
     el.addEventListener('submit', _onSubmit__WEBPACK_IMPORTED_MODULE_2__["onSubmit"]);
+  });
+}
+
+/***/ }),
+
+/***/ "./src/js/feedBackSlider.js":
+/*!**********************************!*\
+  !*** ./src/js/feedBackSlider.js ***!
+  \**********************************/
+/*! exports provided: feedBackSlider */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "feedBackSlider", function() { return feedBackSlider; });
+/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0__);
+
+
+
+function feedBackSlider() {
+  var sliderBox = document.getElementsByClassName('feedback-slider')[0],
+      sliderItems = sliderBox.getElementsByClassName('feedback-slider-item'),
+      sliderButtons = sliderBox.getElementsByClassName('main-slider-btn');
+  var i = 0;
+  [].forEach.call(sliderItems, function (el, c) {
+    el.classList.add('slideInRight', 'animated');
+
+    if (c !== 0) {
+      el.style.display = 'none';
+    }
+  });
+  setInterval(function () {
+    i + 1 < sliderItems.length ? i++ : i = 0;
+    [].forEach.call(sliderItems, function (el, j) {
+      if (j === i) {
+        el.style.display = 'block';
+        el.classList.remove('slideInLeft');
+        el.classList.add('slideInRight');
+      } else {
+        el.style.display = 'none';
+      }
+    });
+  }, 15000);
+  sliderButtons[0].addEventListener('click', function () {
+    // let t ;
+    sliderItems[i].style.display = 'none';
+    i - 1 >= 0 ? i-- : i = sliderItems.length - 1; // t = i;
+
+    sliderItems[i].classList.remove('slideInRight');
+    sliderItems[i].classList.add('slideInLeft');
+    sliderItems[i].style.display = '';
+  });
+  sliderButtons[1].addEventListener('click', function () {
+    sliderItems[i].style.display = 'none';
+    i + 1 < sliderItems.length ? i++ : i = 0;
+    sliderItems[i].classList.remove('slideInLeft');
+    sliderItems[i].classList.add('slideInRight');
+    sliderItems[i].style.display = '';
   });
 }
 
@@ -2560,7 +2622,6 @@ function onSizeBlocksHover() {
     });
     currentElem = null;
   });
-  sizesBlockWrapper.addEventListener('');
 }
 
 /***/ }),
