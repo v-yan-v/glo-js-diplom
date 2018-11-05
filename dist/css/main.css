@@ -761,16 +761,19 @@ h4 {
   font-family: 'Circe Extra Bold', sans-serif;
   color: black;
 }
-.sizes .sizes-hit:after {
-  width: 100%;
-  display: inline-block;
+.sizes .sizes-hit::after {
   background-color: #f99300;
+  content: 'Хит продаж';
+  bottom: -3rem;
   color: #ffffff;
   font-size: 1.4rem;
-  text-transform: uppercase;
+  left: 50%;
+  text-align: center;
+  transform: translateX(-50%);
   padding: 1.5rem 2rem;
-  left: 6rem;
-  bottom: -2.5rem;
+  position: absolute;
+  text-transform: uppercase;
+  min-width: 140px;
   font-family: 'Circe Bold', sans-serif;
 }
 .scheme {
@@ -896,7 +899,7 @@ h4 {
   font-size: 2.2rem;
   cursor: pointer;
   text-align: center;
-  margin-bottom: 4rem;
+  margin-top: 4rem;
 }
 .often-questions .accordion-heading span {
   border-bottom: 2px dotted #333;
@@ -1160,12 +1163,20 @@ h4 {
   margin-bottom: 3.5rem;
 }
 .popup-dialog {
-  position: relative;
+  position: fixed;
+  text-align: center;
+  max-width: 35rem;
+  left: 50%;
+  top: 50%;
+  background-color: #ededed;
+  border-radius: 4px;
+  transform: translate(-50%, -50%) /*!important*/;
+  padding: 4rem 6rem 5rem 6rem;
 }
 .popup-close {
-  position: fixed;
-  top: 15%;
-  left: calc(50% + 14rem);
+  position: absolute;
+  top: -8%;
+  right: -5%;
   font-size: 5rem;
   width: 5rem;
   height: 5rem;
@@ -1174,17 +1185,6 @@ h4 {
   background: transparent;
   color: #ffffff;
   border: none;
-}
-.popup-content {
-  position: fixed;
-  text-align: center;
-  max-width: 35rem;
-  left: 50%;
-  top: 20%;
-  background-color: #ededed;
-  border-radius: 4px;
-  transform: translateX(-50%) !important;
-  padding: 4rem 6rem 5rem 6rem;
 }
 @media (max-width: 1399px) {
   .paints {
@@ -1642,9 +1642,6 @@ h4 {
   .popup-consultation .button-transparent:before,
   .popup-design .button-transparent:before {
     margin: 0;
-  }
-  .popup-close {
-    left: calc(50% + 10rem);
   }
   .popup-content {
     padding: 3rem 3rem;
