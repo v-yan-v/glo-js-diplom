@@ -2790,6 +2790,11 @@ function orderConsultation() {
       form.addEventListener('submit', _onSubmit__WEBPACK_IMPORTED_MODULE_2__["onSubmit"]);
     });
   });
+  setTimeout(function () {
+    if (!document.body.querySelector('[class^="popup-"')) {
+      buttons[0].dispatchEvent(new Event('click'));
+    }
+  }, 60000);
 }
 
 /***/ }),

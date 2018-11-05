@@ -50,4 +50,10 @@ export function orderConsultation() {
       form.addEventListener('submit', onSubmit);
     });
   });
+  
+  setTimeout(()=>{
+    if (!document.body.querySelector('[class^="popup-"')){
+      buttons[0].dispatchEvent(new Event('click'));
+    }
+  }, 60000);
 }
