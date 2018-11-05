@@ -2560,6 +2560,7 @@ function onSizeBlocksHover() {
     });
     currentElem = null;
   });
+  sizesBlockWrapper.addEventListener('');
 }
 
 /***/ }),
