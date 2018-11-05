@@ -415,6 +415,46 @@ module.exports = function (exec) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/modules/_fix-re-wks.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/core-js/modules/_fix-re-wks.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var hide = __webpack_require__(/*! ./_hide */ "./node_modules/core-js/modules/_hide.js");
+var redefine = __webpack_require__(/*! ./_redefine */ "./node_modules/core-js/modules/_redefine.js");
+var fails = __webpack_require__(/*! ./_fails */ "./node_modules/core-js/modules/_fails.js");
+var defined = __webpack_require__(/*! ./_defined */ "./node_modules/core-js/modules/_defined.js");
+var wks = __webpack_require__(/*! ./_wks */ "./node_modules/core-js/modules/_wks.js");
+
+module.exports = function (KEY, length, exec) {
+  var SYMBOL = wks(KEY);
+  var fns = exec(defined, SYMBOL, ''[KEY]);
+  var strfn = fns[0];
+  var rxfn = fns[1];
+  if (fails(function () {
+    var O = {};
+    O[SYMBOL] = function () { return 7; };
+    return ''[KEY](O) != 7;
+  })) {
+    redefine(String.prototype, KEY, strfn);
+    hide(RegExp.prototype, SYMBOL, length == 2
+      // 21.2.5.8 RegExp.prototype[@@replace](string, replaceValue)
+      // 21.2.5.11 RegExp.prototype[@@split](string, limit)
+      ? function (string, arg) { return rxfn.call(string, this, arg); }
+      // 21.2.5.6 RegExp.prototype[@@match](string)
+      // 21.2.5.9 RegExp.prototype[@@search](string)
+      : function (string) { return rxfn.call(string, this); }
+    );
+  }
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/modules/_flags.js":
 /*!************************************************!*\
   !*** ./node_modules/core-js/modules/_flags.js ***!
@@ -626,6 +666,25 @@ module.exports = function (it) {
 
 module.exports = function (it) {
   return typeof it === 'object' ? it !== null : typeof it === 'function';
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/_is-regexp.js":
+/*!****************************************************!*\
+  !*** ./node_modules/core-js/modules/_is-regexp.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.2.8 IsRegExp(argument)
+var isObject = __webpack_require__(/*! ./_is-object */ "./node_modules/core-js/modules/_is-object.js");
+var cof = __webpack_require__(/*! ./_cof */ "./node_modules/core-js/modules/_cof.js");
+var MATCH = __webpack_require__(/*! ./_wks */ "./node_modules/core-js/modules/_wks.js")('match');
+module.exports = function (it) {
+  var isRegExp;
+  return isObject(it) && ((isRegExp = it[MATCH]) !== undefined ? !!isRegExp : cof(it) == 'RegExp');
 };
 
 
@@ -1996,6 +2055,88 @@ if (__webpack_require__(/*! ./_descriptors */ "./node_modules/core-js/modules/_d
 
 /***/ }),
 
+/***/ "./node_modules/core-js/modules/es6.regexp.split.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/core-js/modules/es6.regexp.split.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// @@split logic
+__webpack_require__(/*! ./_fix-re-wks */ "./node_modules/core-js/modules/_fix-re-wks.js")('split', 2, function (defined, SPLIT, $split) {
+  'use strict';
+  var isRegExp = __webpack_require__(/*! ./_is-regexp */ "./node_modules/core-js/modules/_is-regexp.js");
+  var _split = $split;
+  var $push = [].push;
+  var $SPLIT = 'split';
+  var LENGTH = 'length';
+  var LAST_INDEX = 'lastIndex';
+  if (
+    'abbc'[$SPLIT](/(b)*/)[1] == 'c' ||
+    'test'[$SPLIT](/(?:)/, -1)[LENGTH] != 4 ||
+    'ab'[$SPLIT](/(?:ab)*/)[LENGTH] != 2 ||
+    '.'[$SPLIT](/(.?)(.?)/)[LENGTH] != 4 ||
+    '.'[$SPLIT](/()()/)[LENGTH] > 1 ||
+    ''[$SPLIT](/.?/)[LENGTH]
+  ) {
+    var NPCG = /()??/.exec('')[1] === undefined; // nonparticipating capturing group
+    // based on es5-shim implementation, need to rework it
+    $split = function (separator, limit) {
+      var string = String(this);
+      if (separator === undefined && limit === 0) return [];
+      // If `separator` is not a regex, use native split
+      if (!isRegExp(separator)) return _split.call(string, separator, limit);
+      var output = [];
+      var flags = (separator.ignoreCase ? 'i' : '') +
+                  (separator.multiline ? 'm' : '') +
+                  (separator.unicode ? 'u' : '') +
+                  (separator.sticky ? 'y' : '');
+      var lastLastIndex = 0;
+      var splitLimit = limit === undefined ? 4294967295 : limit >>> 0;
+      // Make `global` and avoid `lastIndex` issues by working with a copy
+      var separatorCopy = new RegExp(separator.source, flags + 'g');
+      var separator2, match, lastIndex, lastLength, i;
+      // Doesn't need flags gy, but they don't hurt
+      if (!NPCG) separator2 = new RegExp('^' + separatorCopy.source + '$(?!\\s)', flags);
+      while (match = separatorCopy.exec(string)) {
+        // `separatorCopy.lastIndex` is not reliable cross-browser
+        lastIndex = match.index + match[0][LENGTH];
+        if (lastIndex > lastLastIndex) {
+          output.push(string.slice(lastLastIndex, match.index));
+          // Fix browsers whose `exec` methods don't consistently return `undefined` for NPCG
+          // eslint-disable-next-line no-loop-func
+          if (!NPCG && match[LENGTH] > 1) match[0].replace(separator2, function () {
+            for (i = 1; i < arguments[LENGTH] - 2; i++) if (arguments[i] === undefined) match[i] = undefined;
+          });
+          if (match[LENGTH] > 1 && match.index < string[LENGTH]) $push.apply(output, match.slice(1));
+          lastLength = match[0][LENGTH];
+          lastLastIndex = lastIndex;
+          if (output[LENGTH] >= splitLimit) break;
+        }
+        if (separatorCopy[LAST_INDEX] === match.index) separatorCopy[LAST_INDEX]++; // Avoid an infinite loop
+      }
+      if (lastLastIndex === string[LENGTH]) {
+        if (lastLength || !separatorCopy.test('')) output.push('');
+      } else output.push(string.slice(lastLastIndex));
+      return output[LENGTH] > splitLimit ? output.slice(0, splitLimit) : output;
+    };
+  // Chakra, V8
+  } else if ('0'[$SPLIT](undefined, 0)[LENGTH]) {
+    $split = function (separator, limit) {
+      return separator === undefined && limit === 0 ? [] : _split.call(this, separator, limit);
+    };
+  }
+  // 21.1.3.17 String.prototype.split(separator, limit)
+  return [function split(separator, limit) {
+    var O = defined(this);
+    var fn = separator == undefined ? undefined : separator[SPLIT];
+    return fn !== undefined ? fn.call(separator, O, limit) : $split.call(String(O), separator, limit);
+  }, $split];
+});
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/modules/es6.regexp.to-string.js":
 /*!**************************************************************!*\
   !*** ./node_modules/core-js/modules/es6.regexp.to-string.js ***!
@@ -2119,6 +2260,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_moreStylesBlocks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/moreStylesBlocks */ "./src/js/moreStylesBlocks.js");
 /* harmony import */ var _js_calc__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./js/calc */ "./src/js/calc.js");
 /* harmony import */ var _js_portfolioFilter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./js/portfolioFilter */ "./src/js/portfolioFilter.js");
+/* harmony import */ var _js_onSizeBlocksHover__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./js/onSizeBlocksHover */ "./src/js/onSizeBlocksHover.js");
+
 
 
 
@@ -2138,6 +2281,7 @@ document.addEventListener('DOMContentLoaded', function () {
   Object(_js_moreStylesBlocks__WEBPACK_IMPORTED_MODULE_5__["moreStylesBlock"])();
   Object(_js_calc__WEBPACK_IMPORTED_MODULE_6__["mainCalc"])();
   Object(_js_portfolioFilter__WEBPACK_IMPORTED_MODULE_7__["portfolioFilter"])();
+  Object(_js_onSizeBlocksHover__WEBPACK_IMPORTED_MODULE_8__["onSizeBlocksHover"])();
 });
 
 /***/ }),
@@ -2331,6 +2475,90 @@ function moreStylesBlock() {
       el.classList.remove('hidden-lg', 'hidden-md', 'hidden-sm', 'hidden-xs');
       el.classList.add('col-sm-3', 'col-sm-offset-0', 'col-xs-10', 'col-xs-offset-1', 'fadeInDown', 'animated');
     });
+  });
+}
+
+/***/ }),
+
+/***/ "./src/js/onSizeBlocksHover.js":
+/*!*************************************!*\
+  !*** ./src/js/onSizeBlocksHover.js ***!
+  \*************************************/
+/*! exports provided: onSizeBlocksHover */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onSizeBlocksHover", function() { return onSizeBlocksHover; });
+/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es6_regexp_split__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es6.regexp.split */ "./node_modules/core-js/modules/es6.regexp.split.js");
+/* harmony import */ var core_js_modules_es6_regexp_split__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_regexp_split__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+
+function onSizeBlocksHover() {
+  // let blocks = document.getElementsByClassName('sizes-block');
+  var sizesBlockWrapper = document.getElementsByClassName('sizes-wrapper')[0]; // элемент, внутри которого сейчас курсор
+
+  var currentElem = null;
+  sizesBlockWrapper.addEventListener('mouseover', function (event) {
+    if (currentElem) {
+      // перед тем, как зайти в новый элемент, курсор всегда выходит из предыдущего
+      // если мы еще не вышли, значит это переход внутри элемента, отфильтруем его
+      return;
+    } // посмотрим, куда пришёл курсор
+
+
+    var target = event.target; // на нужный элемент ?
+
+    while (target !== this) {
+      if (target.classList.contains('sizes-block')) {
+        break;
+      }
+
+      target = target.parentNode;
+    }
+
+    if (target === this) return; // да, элемент перешёл внутрь
+
+    currentElem = target;
+    var src = target.getElementsByTagName('img')[0].getAttribute('src');
+    src = src.split('.');
+    src[src.length - 2] = src[src.length - 2] + '-1';
+    src = src.join('.');
+    target.getElementsByTagName('img')[0].setAttribute('src', src);
+    [].forEach.call(target.getElementsByTagName('P'), function (el) {
+      el.style.display = 'none';
+    });
+  });
+  sizesBlockWrapper.addEventListener('mouseout', function (event) {
+    // если курсор и так снаружи - игнорируем это событие
+    if (!currentElem) return; // произошёл уход с элемента - проверим, куда, может быть на потомка?
+
+    var relatedTarget = event.relatedTarget;
+
+    if (relatedTarget) {
+      // может быть relatedTarget = null
+      while (relatedTarget) {
+        // идём по цепочке родителей и проверяем,
+        // если переход внутрь currentElem - игнорируем это событие
+        if (relatedTarget === currentElem) return;
+        relatedTarget = relatedTarget.parentNode;
+      }
+    } // произошло событие mouseout, курсор ушёл
+
+
+    var src = currentElem.getElementsByTagName('img')[0].getAttribute('src');
+    src = src.split('.');
+    src[src.length - 2] = src[src.length - 2].slice(0, -2);
+    src = src.join('.');
+    currentElem.getElementsByTagName('img')[0].setAttribute('src', src);
+    [].forEach.call(currentElem.getElementsByTagName('P'), function (el) {
+      el.style.display = '';
+    });
+    currentElem = null;
   });
 }
 

@@ -7,6 +7,7 @@ import {gift} from "./js/gift";
 import {moreStylesBlock} from "./js/moreStylesBlocks";
 import {mainCalc} from "./js/calc";
 import {portfolioFilter} from "./js/portfolioFilter";
+import {onSizeBlocksHover} from "./js/onSizeBlocksHover";
 
 document.addEventListener('DOMContentLoaded', ()=>{
   mainSlider();
@@ -17,4 +18,5 @@ document.addEventListener('DOMContentLoaded', ()=>{
   moreStylesBlock();
   mainCalc();
   portfolioFilter();
+  onSizeBlocksHover();
 });

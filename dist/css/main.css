@@ -761,8 +761,8 @@ h4 {
   font-family: 'Circe Extra Bold', sans-serif;
   color: black;
 }
-.sizes-block .sizes-hit {
-  width: auto;
+.sizes .sizes-hit:after {
+  width: 100%;
   display: inline-block;
   background-color: #f99300;
   color: #ffffff;
@@ -844,7 +844,7 @@ h4 {
   position: absolute;
   bottom: -3rem;
   left: 15rem;
-  z-index: 1000000;
+  z-index: 10;
 }
 .feedback-block .button-order:before {
   content: '';
