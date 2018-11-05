@@ -2262,6 +2262,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_portfolioFilter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./js/portfolioFilter */ "./src/js/portfolioFilter.js");
 /* harmony import */ var _js_onSizeBlocksHover__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./js/onSizeBlocksHover */ "./src/js/onSizeBlocksHover.js");
 /* harmony import */ var _js_feedBackSlider__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./js/feedBackSlider */ "./src/js/feedBackSlider.js");
+/* harmony import */ var _js_accordion__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./js/accordion */ "./src/js/accordion.js");
+
 
 
 
@@ -2285,7 +2287,63 @@ document.addEventListener('DOMContentLoaded', function () {
   Object(_js_portfolioFilter__WEBPACK_IMPORTED_MODULE_7__["portfolioFilter"])();
   Object(_js_onSizeBlocksHover__WEBPACK_IMPORTED_MODULE_8__["onSizeBlocksHover"])();
   Object(_js_feedBackSlider__WEBPACK_IMPORTED_MODULE_9__["feedBackSlider"])();
+  Object(_js_accordion__WEBPACK_IMPORTED_MODULE_10__["accordion"])();
 });
+
+/***/ }),
+
+/***/ "./src/js/accordion.js":
+/*!*****************************!*\
+  !*** ./src/js/accordion.js ***!
+  \*****************************/
+/*! exports provided: accordion */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "accordion", function() { return accordion; });
+/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0__);
+
+
+
+function accordion() {
+  var accordionBox = document.getElementById('often-questions'),
+      titles = accordionBox.getElementsByClassName('accordion-heading'),
+      blocks = accordionBox.getElementsByClassName('accordion-block');
+
+  function showBlock(n) {
+    titles[n].style.color = '#c51abb';
+    titles[n].firstElementChild.style.borderBottom = 'none';
+    blocks[n].style.display = '';
+    console.log(blocks);
+  }
+
+  function hideBlock(n) {
+    titles[n].style.color = '';
+    titles[n].firstElementChild.style.borderBottom = '';
+    blocks[n].style.display = 'none';
+  }
+
+  [].forEach.call(blocks, function (el, i) {
+    if (i === 0) {
+      showBlock(i);
+    } else {
+      hideBlock(i);
+    }
+  });
+  accordionBox.addEventListener('click', function (evt) {
+    if (evt.target.parentElement.classList.contains('accordion-heading')) {
+      [].forEach.call(titles, function (el, i) {
+        if (el === evt.target.parentElement) {
+          showBlock(i);
+        } else {
+          hideBlock(i);
+        }
+      });
+    }
+  }); // titles[0].dispatchEvent(new Event('click'));
+}
 
 /***/ }),
 

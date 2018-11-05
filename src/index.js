@@ -9,6 +9,7 @@ import {mainCalc} from "./js/calc";
 import {portfolioFilter} from "./js/portfolioFilter";
 import {onSizeBlocksHover} from "./js/onSizeBlocksHover";
 import {feedBackSlider} from "./js/feedBackSlider";
+import {accordion} from "./js/accordion";
 
 document.addEventListener('DOMContentLoaded', ()=>{
   mainSlider();
@@ -21,4 +22,5 @@ document.addEventListener('DOMContentLoaded', ()=>{
   portfolioFilter();
   onSizeBlocksHover();
   feedBackSlider();
+  accordion();
 });
