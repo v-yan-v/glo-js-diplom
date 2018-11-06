@@ -10,6 +10,7 @@ import {portfolioFilter} from "./js/portfolioFilter";
 import {onSizeBlocksHover} from "./js/onSizeBlocksHover";
 import {feedBackSlider} from "./js/feedBackSlider";
 import {accordion} from "./js/accordion";
+import {onMenuClick} from "./js/onMenuClick";
 
 document.addEventListener('DOMContentLoaded', ()=>{
   document.isAnyButtonPushed = false;
@@ -26,4 +27,5 @@ document.addEventListener('DOMContentLoaded', ()=>{
   onSizeBlocksHover();
   feedBackSlider();
   accordion();
+  onMenuClick();
 });

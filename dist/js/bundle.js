@@ -2263,6 +2263,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_onSizeBlocksHover__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./js/onSizeBlocksHover */ "./src/js/onSizeBlocksHover.js");
 /* harmony import */ var _js_feedBackSlider__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./js/feedBackSlider */ "./src/js/feedBackSlider.js");
 /* harmony import */ var _js_accordion__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./js/accordion */ "./src/js/accordion.js");
+/* harmony import */ var _js_onMenuClick__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./js/onMenuClick */ "./src/js/onMenuClick.js");
+
 
 
 
@@ -2290,6 +2292,7 @@ document.addEventListener('DOMContentLoaded', function () {
   Object(_js_onSizeBlocksHover__WEBPACK_IMPORTED_MODULE_8__["onSizeBlocksHover"])();
   Object(_js_feedBackSlider__WEBPACK_IMPORTED_MODULE_9__["feedBackSlider"])();
   Object(_js_accordion__WEBPACK_IMPORTED_MODULE_10__["accordion"])();
+  Object(_js_onMenuClick__WEBPACK_IMPORTED_MODULE_11__["onMenuClick"])();
 });
 
 /***/ }),
@@ -2605,6 +2608,47 @@ function moreStylesBlock() {
       el.classList.remove('hidden-lg', 'hidden-md', 'hidden-sm', 'hidden-xs');
       el.classList.add('col-sm-3', 'col-sm-offset-0', 'col-xs-10', 'col-xs-offset-1', 'fadeInDown', 'animated');
     });
+  });
+}
+
+/***/ }),
+
+/***/ "./src/js/onMenuClick.js":
+/*!*******************************!*\
+  !*** ./src/js/onMenuClick.js ***!
+  \*******************************/
+/*! exports provided: onMenuClick */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onMenuClick", function() { return onMenuClick; });
+
+
+function onMenuClick() {
+  var menuBtn = document.getElementsByClassName('burger')[0],
+      menu = document.getElementsByClassName('burger-menu')[0];
+  menuBtn.addEventListener('click', function (e) {
+    if (window.matchMedia("(max-width: 768px)").matches) {
+      menu.style.display = 'block';
+      document.addEventListener('click', hideMenu);
+    }
+
+    e.stopPropagation();
+    e.preventDefault();
+
+    function hideMenu() {
+      if (menu.style.display === 'block') {
+        menu.style.display = '';
+        document.removeEventListener('click', hideMenu);
+      }
+    }
+  });
+  var mediaQ = window.matchMedia("(min-width: 769px)");
+  mediaQ.addListener(function () {
+    if (mediaQ.matches) {
+      menu.style.display = '';
+    }
   });
 }
 
