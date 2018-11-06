@@ -12,6 +12,9 @@ import {feedBackSlider} from "./js/feedBackSlider";
 import {accordion} from "./js/accordion";
 
 document.addEventListener('DOMContentLoaded', ()=>{
+  document.isAnyButtonPushed = false;
+  document.isEndWasReached   = false;
+  
   mainSlider();
   orderDesign();
   orderConsultation();

@@ -9,7 +9,6 @@ export function accordion() {
     titles[n].style.color = '#c51abb';
     titles[n].firstElementChild.style.borderBottom = 'none';
     blocks[n].style.display = '';
-    console.log(blocks);
   }
   function hideBlock(n){
     titles[n].style.color = '';

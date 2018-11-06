@@ -9,6 +9,8 @@ export function orderConsultation() {
   
   [].forEach.call(buttons, el =>{
     el.addEventListener('click', () =>{
+      document.isAnyButtonPushed = true;
+      
       popup.classList.add('popup-consultation');
       popup.innerHTML = `
         <div class=popup-dialog>

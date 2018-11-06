@@ -2277,6 +2277,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 document.addEventListener('DOMContentLoaded', function () {
+  document.isAnyButtonPushed = false;
+  document.isEndWasReached = false;
   Object(_js_mainSlider__WEBPACK_IMPORTED_MODULE_0__["mainSlider"])();
   Object(_js_orderDesign__WEBPACK_IMPORTED_MODULE_1__["orderDesign"])();
   Object(_js_orderConsultation__WEBPACK_IMPORTED_MODULE_2__["orderConsultation"])();
@@ -2316,7 +2318,6 @@ function accordion() {
     titles[n].style.color = '#c51abb';
     titles[n].firstElementChild.style.borderBottom = 'none';
     blocks[n].style.display = '';
-    console.log(blocks);
   }
 
   function hideBlock(n) {
@@ -2509,6 +2510,7 @@ __webpack_require__.r(__webpack_exports__);
 function gift() {
   document.getElementsByClassName('fixed-gift')[0].addEventListener('click', function (evt) {
     var popup = document.createElement('div');
+    document.isAnyButtonPushed = true;
     popup.classList.add('popup-gift');
     popup.innerHTML = "\n    <div class=popup-dialog>\n      <button class=popup-close>&times;</button>\n      <div class=popup-content>\n\t\t\t\t<h2>\u0423 \u043D\u0430\u0441 \u0434\u043B\u044F \u0432\u0430\u0441 \u0435\u0441\u0442\u044C \u043F\u043E\u0434\u0430\u0440\u043E\u043A!</h2>\n\t\t\t\t<img src=\"img/gift.png\" alt=\"\">\n\t\t\t\t<p>\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043F\u0440\u043E\u043C\u043E-\u043A\u043E\u0434 IWANTPOPART \u0438 \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u0435 \u0441\u043A\u0438\u0434\u043A\u0443 30% \u043D\u0430 \u043F\u043E\u0440\u0442\u0440\u0435\u0442 \u043B\u044E\u0431\u043E\u0433\u043E \u0440\u0430\u0437\u043C\u0435\u0440\u0430 \u0432 \u0441\u0442\u0438\u043B\u0435 pop-art!</p>\n\t\t\t</div>\n\t\t</div>";
     document.body.appendChild(popup);
@@ -2527,6 +2529,14 @@ function gift() {
 
     popup.addEventListener('click', closePopup);
     popup.getElementsByClassName('popup-close')[0].addEventListener('click', closePopup);
+  });
+  document.addEventListener('scroll', function () {
+    if (document.documentElement.scrollTop >= document.documentElement.scrollHeight - document.documentElement.clientHeight) {
+      if (!document.isAnyButtonPushed && !document.isEndWasReached) {
+        document.isEndWasReached = true;
+        document.getElementsByClassName('fixed-gift')[0].dispatchEvent(new Event('click'));
+      }
+    }
   });
 }
 
@@ -2706,6 +2716,7 @@ function onSubmit(event) {
     fail: '<h4>send error</h4>'
   };
   var statusMsg = document.createElement('div');
+  document.isAnyButtonPushed = true;
   event.preventDefault();
   sendFormData(new FormData(event.target)).then(function () {
     event.target.appendChild(statusMsg);
@@ -2766,6 +2777,7 @@ function orderConsultation() {
   var popup = document.createElement('div');
   [].forEach.call(buttons, function (el) {
     el.addEventListener('click', function () {
+      document.isAnyButtonPushed = true;
       popup.classList.add('popup-consultation');
       popup.innerHTML = "\n        <div class=popup-dialog>\n          <button class=popup-close>&times;</button>\n          <div class=popup-content>\n            <h4>\u041E\u0441\u0442\u0430\u043B\u0438\u0441\u044C \u0432\u043E\u043F\u0440\u043E\u0441\u044B? \u0417\u0430\u043A\u0430\u0436\u0438\u0442\u0435 \u043E\u0431\u0440\u0430\u0442\u043D\u044B\u0439 \u0437\u0432\u043E\u043D\u043E\u043A</h4>\n            <div class=main-form>\n              <form class=\"form\" action=\"mailer/smart.php\" method=\"POST\">\n                <input type=text name=name placeholder=\"\u0412\u0430\u0448\u0435 \u0438\u043C\u044F\" required>\n                <input type=text name=phone placeholder=\"\u0412\u0430\u0448 \u0442\u0435\u043B\u0435\u0444\u043E\u043D\" required>\n                <!--<button class=\"button button-order\" onclick=\"yaCounter46630539.reachGoal('btn-consultation'); return true;\">\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043A\u043E\u043D\u0441\u0443\u043B\u044C\u0442\u0430\u0446\u0438\u044E</button>-->\n                <button class=\"button button-order\">\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043A\u043E\u043D\u0441\u0443\u043B\u044C\u0442\u0430\u0446\u0438\u044E</button>\n              </form>\n            </div>\n          </div>\n        </div>";
       document.body.appendChild(popup);
@@ -2823,6 +2835,7 @@ function orderDesign() {
   var popup = document.createElement('div');
   [].forEach.call(buttons, function (el) {
     el.addEventListener('click', function () {
+      document.isAnyButtonPushed = true;
       popup.classList.add('popup-design');
       popup.innerHTML = "\n        <div class=popup-dialog>\n      <button class=popup-close>&times;</button>\n      <div class=popup-content>\n\t\t\t\t<form action=\"/\" method=\"POST\" enctype=\"multipart/form-data\">\n\t\t\t\t\t<h4>\u0417\u0430\u043A\u0430\u0437\u0430\u0442\u044C \u0434\u0438\u0437\u0430\u0439\u043D \u043F\u043E\u0440\u0442\u0440\u0435\u0442\u0430</h4>\n\t\t\t\t\t<div class=file_upload>\n\t\t\t\t\t\t<button type=button>\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u044E</button>\n\t\t\t\t\t\t<div>\u0424\u0430\u0439\u043B \u043D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D</div>\n\t\t\t\t\t\t<input type=file name=upload>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=main-form>\n\t\t\t\t\t\t<div class=form>\n\t\t\t\t\t\t\t<input type=text name=name placeholder=\"\u0412\u0430\u0448\u0435 \u0438\u043C\u044F\" required>\n\t\t\t\t\t\t\t<input type=text name=phone placeholder=\"\u0412\u0430\u0448 \u0442\u0435\u043B\u0435\u0444\u043E\u043D\" required>\n\t\t\t\t\t\t\t<input type=text name=email placeholder=\"\u0412\u0430\u0448 e-mail\">\n\t\t\t\t\t\t\t<textarea name=message placeholder=\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 rows=2></textarea>\n\t\t\t\t\t\t\t<button class=\"button button-order\">\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u0434\u0438\u0437\u0430\u0439\u043D\u0435\u0440\u0443</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t</div>";
       document.body.appendChild(popup);

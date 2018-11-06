@@ -7,6 +7,7 @@ export function onSubmit(event) {
     fail: '<h4>send error</h4>'
   };
   let statusMsg = document.createElement('div');
+  document.isAnyButtonPushed = true;
   
   event.preventDefault();
   

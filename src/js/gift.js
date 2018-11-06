@@ -3,6 +3,7 @@
 export function gift() {
   document.getElementsByClassName('fixed-gift')[0].addEventListener('click', (evt)=>{
     let popup = document.createElement('div');
+    document.isAnyButtonPushed = true;
     
     popup.classList.add('popup-gift');
     popup.innerHTML = `
@@ -31,5 +32,14 @@ export function gift() {
   
     popup.addEventListener('click', closePopup);
     popup.getElementsByClassName('popup-close')[0].addEventListener('click', closePopup);
+  });
+  
+  document.addEventListener('scroll', ()=>{
+    if (document.documentElement.scrollTop >= document.documentElement.scrollHeight - document.documentElement.clientHeight){
+      if (!document.isAnyButtonPushed && !document.isEndWasReached){
+        document.isEndWasReached = true;
+        document.getElementsByClassName('fixed-gift')[0].dispatchEvent(new Event('click'));
+      }
+    }
   });
 }
