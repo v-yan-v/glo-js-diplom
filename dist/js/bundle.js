@@ -2774,6 +2774,13 @@ function onSubmit(event) {
   var statusMsg = document.createElement('div');
   document.isAnyButtonPushed = true;
   event.preventDefault();
+  var price = event.target.getElementsByClassName('calc-price')[0];
+  var file = event.target.querySelector('[type="file"]');
+
+  if (price && isNaN(+price.textContent) || file && file.value === '') {
+    return;
+  }
+
   sendFormData(new FormData(event.target)).then(function () {
     event.target.appendChild(statusMsg);
     statusMsg.innerHTML = messages.sending;
@@ -3065,7 +3072,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function validateTextInput(event) {
-  if (event.target.type !== 'password' && event.target.name !== 'password' && event.target.type !== 'tel' && event.target.name !== 'tel' && event.target.name !== 'phone' && event.target.type !== 'email' && event.target.name !== 'email') {
+  if (event.target.type !== 'password' && event.target.name !== 'password' && event.target.type !== 'tel' && event.target.name !== 'tel' && event.target.name !== 'phone' && event.target.type !== 'email' && event.target.name !== 'email' && event.target.tagName !== 'SELECT' && event.target.type !== 'file') {
     if (!event.target.oldValue) {
       event.target.oldValue = '';
     }

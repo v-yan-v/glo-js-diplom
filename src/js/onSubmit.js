@@ -21,6 +21,12 @@ export function onSubmit(event) {
   
   event.preventDefault();
   
+  let price = event.target.getElementsByClassName('calc-price')[0];
+  let file = event.target.querySelector('[type="file"]');
+  if ((price && isNaN(+price.textContent)) || ( file && (file.value === ''))){
+    return;
+  }
+  
   sendFormData(new FormData(event.target))
     .then(() => {
       event.target.appendChild(statusMsg);
