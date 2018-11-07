@@ -2765,9 +2765,12 @@ __webpack_require__.r(__webpack_exports__);
 function onSubmit(event) {
   var messages = {
     sending: '<p>Отправляем данные.</p>',
-    success: '<h4>data send</h4>',
-    fail: '<h4>send error</h4>'
+    success: '<h4>Спасибо. Мы свяжемся с вами в ближайшее время</h4>',
+    fail: '<h4>Ошибка отправки. Попробуйте позже.</h4>'
   };
+  var popupSendResult = document.createElement('div');
+  popupSendResult.classList.add('popup-consultation');
+  popupSendResult.innerHTML = "\n      <div class=popup-dialog>\n        <button class=popup-close>&times;</button>\n        <div class=popup-content></div>\n      </div>";
   var statusMsg = document.createElement('div');
   document.isAnyButtonPushed = true;
   event.preventDefault();
@@ -2775,9 +2778,26 @@ function onSubmit(event) {
     event.target.appendChild(statusMsg);
     statusMsg.innerHTML = messages.sending;
   }).then(function () {
-    event.target.closest('.popup-content').innerHTML = messages.success;
+    // console.log(event.target.parentElement.parentElement.parentElement.parentElement);
+    event.target.parentElement.parentElement.parentElement.parentElement.dispatchEvent(new Event('click'));
+    popupSendResult.getElementsByClassName('popup-content')[0].innerHTML = messages.success;
+    document.body.appendChild(popupSendResult);
+    popupSendResult.style.display = 'block';
+    popupSendResult.addEventListener('click', function (evt) {
+      if (evt.target === popupSendResult || evt.target.classList.contains('popup-close')) {
+        popupSendResult.remove();
+      }
+    });
   }).catch(function () {
-    event.target.closest('.popup-content').innerHTML = messages.fail;
+    event.target.parentElement.parentElement.parentElement.parentElement.dispatchEvent(new Event('click'));
+    popupSendResult.getElementsByClassName('popup-content')[0].innerHTML = messages.fail;
+    document.body.appendChild(popupSendResult);
+    popupSendResult.style.display = 'block';
+    popupSendResult.addEventListener('click', function (evt) {
+      if (evt.target === popupSendResult || evt.target.classList.contains('popup-close')) {
+        popupSendResult.remove();
+      }
+    });
   });
   event.target.dispatchEvent(new Event('reset'));
   setTimeout(function () {
