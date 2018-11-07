@@ -1043,8 +1043,14 @@ h1, h2, h3, h4 {
     border-radius: 50px;
     margin-bottom: 3rem;
     &::placeholder {
-      color: black;
+      color: #404040;
       .CirceBold();
+    }
+    &.valid{
+      border: 1px solid #4cae4c;
+    }
+    &.invalid{
+      border: 1px solid crimson;
     }
   }
   .input-text {
@@ -1123,9 +1129,15 @@ h1, h2, h3, h4 {
         width: 100%;
         color: inherit;
         resize: none;
+        &.valid{
+        border: 1px solid #4cae4c;
+        }
+        &.invalid{
+          border: 1px solid crimson;
+        }
       }
       input::placeholder, textarea::placeholder {
-        color: black;
+        color: #404040;
         text-align: center;
         .CirceBold();
       }
@@ -1220,9 +1232,15 @@ h1, h2, h3, h4 {
         width: 100%;
         color: inherit;
         resize: none;
+        &.valid{
+          border: 1px solid #4cae4c;
+        }
+        &.invalid{
+          border: 1px solid crimson;
+        }
       }
       input::placeholder, textarea::placeholder {
-        color: black;
+        color: #404040;
         text-align: center;
         .CirceBold();
       }
@@ -1249,8 +1267,8 @@ h1, h2, h3, h4 {
   }
   &-close {
     position: absolute;
-    top: -8%;
-    right: -5%;
+    top: -4rem;
+    right: -1.5rem;
     //left: 95%;
     font-size: 5rem;
     width: 5rem;

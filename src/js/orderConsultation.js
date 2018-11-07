@@ -1,6 +1,7 @@
 'use strict';
 
 import {validateTelInput} from "./validateTelInput";
+import {validateTextInput} from "./validateTextInput";
 import {onSubmit} from "./onSubmit";
 
 export function orderConsultation() {
@@ -20,7 +21,7 @@ export function orderConsultation() {
             <div class=main-form>
               <form class="form" action="mailer/smart.php" method="POST">
                 <input type=text name=name placeholder="Ваше имя" required>
-                <input type=text name=phone placeholder="Ваш телефон" required>
+                <input type=text name=phone placeholder="Ваш телефон +7 (999) 999-99-99" required>
                 <!--<button class="button button-order" onclick="yaCounter46630539.reachGoal('btn-consultation'); return true;">Получить консультацию</button>-->
                 <button class="button button-order">Получить консультацию</button>
               </form>
@@ -48,7 +49,14 @@ export function orderConsultation() {
       popup.addEventListener('click', closePopup);
       popup.getElementsByClassName('popup-close')[0].addEventListener('click', closePopup);
 
-      form.addEventListener('input', validateTelInput);
+      form.addEventListener('input', (evt)=>{
+        validateTelInput(evt);
+        validateTextInput(evt);
+      });
+      form.addEventListener('change', (evt)=>{
+        validateTelInput(evt);
+        validateTextInput(evt);
+      });
       form.addEventListener('submit', onSubmit);
     });
   });

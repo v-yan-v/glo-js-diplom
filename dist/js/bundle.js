@@ -2425,6 +2425,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _validateTelInput__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validateTelInput */ "./src/js/validateTelInput.js");
 /* harmony import */ var _onSubmit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./onSubmit */ "./src/js/onSubmit.js");
+/* harmony import */ var _validateTextInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./validateTextInput */ "./src/js/validateTextInput.js");
+
 
 
 
@@ -2432,7 +2434,14 @@ __webpack_require__.r(__webpack_exports__);
 
 function checkSendForm() {
   [].forEach.call(document.forms, function (el) {
-    el.addEventListener('input', _validateTelInput__WEBPACK_IMPORTED_MODULE_1__["validateTelInput"]);
+    el.addEventListener('input', function (evt) {
+      Object(_validateTelInput__WEBPACK_IMPORTED_MODULE_1__["validateTelInput"])(evt);
+      Object(_validateTextInput__WEBPACK_IMPORTED_MODULE_3__["validateTextInput"])(evt);
+    });
+    el.addEventListener('change', function (evt) {
+      Object(_validateTelInput__WEBPACK_IMPORTED_MODULE_1__["validateTelInput"])(evt);
+      Object(_validateTextInput__WEBPACK_IMPORTED_MODULE_3__["validateTextInput"])(evt);
+    });
     el.addEventListener('submit', _onSubmit__WEBPACK_IMPORTED_MODULE_2__["onSubmit"]);
   });
 }
@@ -2810,7 +2819,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
 /* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _validateTelInput__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validateTelInput */ "./src/js/validateTelInput.js");
-/* harmony import */ var _onSubmit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./onSubmit */ "./src/js/onSubmit.js");
+/* harmony import */ var _validateTextInput__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./validateTextInput */ "./src/js/validateTextInput.js");
+/* harmony import */ var _onSubmit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./onSubmit */ "./src/js/onSubmit.js");
+
 
 
 
@@ -2823,7 +2834,7 @@ function orderConsultation() {
     el.addEventListener('click', function () {
       document.isAnyButtonPushed = true;
       popup.classList.add('popup-consultation');
-      popup.innerHTML = "\n        <div class=popup-dialog>\n          <button class=popup-close>&times;</button>\n          <div class=popup-content>\n            <h4>\u041E\u0441\u0442\u0430\u043B\u0438\u0441\u044C \u0432\u043E\u043F\u0440\u043E\u0441\u044B? \u0417\u0430\u043A\u0430\u0436\u0438\u0442\u0435 \u043E\u0431\u0440\u0430\u0442\u043D\u044B\u0439 \u0437\u0432\u043E\u043D\u043E\u043A</h4>\n            <div class=main-form>\n              <form class=\"form\" action=\"mailer/smart.php\" method=\"POST\">\n                <input type=text name=name placeholder=\"\u0412\u0430\u0448\u0435 \u0438\u043C\u044F\" required>\n                <input type=text name=phone placeholder=\"\u0412\u0430\u0448 \u0442\u0435\u043B\u0435\u0444\u043E\u043D\" required>\n                <!--<button class=\"button button-order\" onclick=\"yaCounter46630539.reachGoal('btn-consultation'); return true;\">\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043A\u043E\u043D\u0441\u0443\u043B\u044C\u0442\u0430\u0446\u0438\u044E</button>-->\n                <button class=\"button button-order\">\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043A\u043E\u043D\u0441\u0443\u043B\u044C\u0442\u0430\u0446\u0438\u044E</button>\n              </form>\n            </div>\n          </div>\n        </div>";
+      popup.innerHTML = "\n        <div class=popup-dialog>\n          <button class=popup-close>&times;</button>\n          <div class=popup-content>\n            <h4>\u041E\u0441\u0442\u0430\u043B\u0438\u0441\u044C \u0432\u043E\u043F\u0440\u043E\u0441\u044B? \u0417\u0430\u043A\u0430\u0436\u0438\u0442\u0435 \u043E\u0431\u0440\u0430\u0442\u043D\u044B\u0439 \u0437\u0432\u043E\u043D\u043E\u043A</h4>\n            <div class=main-form>\n              <form class=\"form\" action=\"mailer/smart.php\" method=\"POST\">\n                <input type=text name=name placeholder=\"\u0412\u0430\u0448\u0435 \u0438\u043C\u044F\" required>\n                <input type=text name=phone placeholder=\"\u0412\u0430\u0448 \u0442\u0435\u043B\u0435\u0444\u043E\u043D +7 (999) 999-99-99\" required>\n                <!--<button class=\"button button-order\" onclick=\"yaCounter46630539.reachGoal('btn-consultation'); return true;\">\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043A\u043E\u043D\u0441\u0443\u043B\u044C\u0442\u0430\u0446\u0438\u044E</button>-->\n                <button class=\"button button-order\">\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043A\u043E\u043D\u0441\u0443\u043B\u044C\u0442\u0430\u0446\u0438\u044E</button>\n              </form>\n            </div>\n          </div>\n        </div>";
       document.body.appendChild(popup);
       popup.style.display = 'block';
       document.body.style.overflow = 'hidden';
@@ -2834,7 +2845,7 @@ function orderConsultation() {
           popup.removeEventListener('click', closePopup);
           popup.getElementsByClassName('popup-close')[0].removeEventListener('click', closePopup);
           form.removeEventListener('input', _validateTelInput__WEBPACK_IMPORTED_MODULE_1__["validateTelInput"]);
-          form.removeEventListener('submit', _onSubmit__WEBPACK_IMPORTED_MODULE_2__["onSubmit"]);
+          form.removeEventListener('submit', _onSubmit__WEBPACK_IMPORTED_MODULE_3__["onSubmit"]);
           document.body.removeChild(popup);
           document.body.style.overflow = '';
         }
@@ -2842,8 +2853,15 @@ function orderConsultation() {
 
       popup.addEventListener('click', closePopup);
       popup.getElementsByClassName('popup-close')[0].addEventListener('click', closePopup);
-      form.addEventListener('input', _validateTelInput__WEBPACK_IMPORTED_MODULE_1__["validateTelInput"]);
-      form.addEventListener('submit', _onSubmit__WEBPACK_IMPORTED_MODULE_2__["onSubmit"]);
+      form.addEventListener('input', function (evt) {
+        Object(_validateTelInput__WEBPACK_IMPORTED_MODULE_1__["validateTelInput"])(evt);
+        Object(_validateTextInput__WEBPACK_IMPORTED_MODULE_2__["validateTextInput"])(evt);
+      });
+      form.addEventListener('change', function (evt) {
+        Object(_validateTelInput__WEBPACK_IMPORTED_MODULE_1__["validateTelInput"])(evt);
+        Object(_validateTextInput__WEBPACK_IMPORTED_MODULE_2__["validateTextInput"])(evt);
+      });
+      form.addEventListener('submit', _onSubmit__WEBPACK_IMPORTED_MODULE_3__["onSubmit"]);
     });
   });
   setTimeout(function () {
@@ -2868,7 +2886,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
 /* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _validateTelInput__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validateTelInput */ "./src/js/validateTelInput.js");
-/* harmony import */ var _onSubmit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./onSubmit */ "./src/js/onSubmit.js");
+/* harmony import */ var _validateTextInput__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./validateTextInput */ "./src/js/validateTextInput.js");
+/* harmony import */ var _onSubmit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./onSubmit */ "./src/js/onSubmit.js");
+
 
 
 
@@ -2881,7 +2901,7 @@ function orderDesign() {
     el.addEventListener('click', function () {
       document.isAnyButtonPushed = true;
       popup.classList.add('popup-design');
-      popup.innerHTML = "\n        <div class=popup-dialog>\n      <button class=popup-close>&times;</button>\n      <div class=popup-content>\n\t\t\t\t<form action=\"/\" method=\"POST\" enctype=\"multipart/form-data\">\n\t\t\t\t\t<h4>\u0417\u0430\u043A\u0430\u0437\u0430\u0442\u044C \u0434\u0438\u0437\u0430\u0439\u043D \u043F\u043E\u0440\u0442\u0440\u0435\u0442\u0430</h4>\n\t\t\t\t\t<div class=file_upload>\n\t\t\t\t\t\t<button type=button>\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u044E</button>\n\t\t\t\t\t\t<div>\u0424\u0430\u0439\u043B \u043D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D</div>\n\t\t\t\t\t\t<input type=file name=upload>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=main-form>\n\t\t\t\t\t\t<div class=form>\n\t\t\t\t\t\t\t<input type=text name=name placeholder=\"\u0412\u0430\u0448\u0435 \u0438\u043C\u044F\" required>\n\t\t\t\t\t\t\t<input type=text name=phone placeholder=\"\u0412\u0430\u0448 \u0442\u0435\u043B\u0435\u0444\u043E\u043D\" required>\n\t\t\t\t\t\t\t<input type=text name=email placeholder=\"\u0412\u0430\u0448 e-mail\">\n\t\t\t\t\t\t\t<textarea name=message placeholder=\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 rows=2></textarea>\n\t\t\t\t\t\t\t<button class=\"button button-order\">\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u0434\u0438\u0437\u0430\u0439\u043D\u0435\u0440\u0443</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t</div>";
+      popup.innerHTML = "\n        <div class=popup-dialog>\n      <button class=popup-close>&times;</button>\n      <div class=popup-content>\n\t\t\t\t<form action=\"/\" method=\"POST\" enctype=\"multipart/form-data\">\n\t\t\t\t\t<h4>\u0417\u0430\u043A\u0430\u0437\u0430\u0442\u044C \u0434\u0438\u0437\u0430\u0439\u043D \u043F\u043E\u0440\u0442\u0440\u0435\u0442\u0430</h4>\n\t\t\t\t\t<div class=file_upload>\n\t\t\t\t\t\t<button type=button>\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u044E</button>\n\t\t\t\t\t\t<div>\u0424\u0430\u0439\u043B \u043D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D</div>\n\t\t\t\t\t\t<input type=file name=upload>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=main-form>\n\t\t\t\t\t\t<div class=form>\n\t\t\t\t\t\t\t<input type=text name=name placeholder=\"\u0412\u0430\u0448\u0435 \u0438\u043C\u044F\" required>\n\t\t\t\t\t\t\t<input type=text name=phone placeholder=\"\u0412\u0430\u0448 \u0442\u0435\u043B\u0435\u0444\u043E\u043D +7 (999) 999-99-99\" required>\n\t\t\t\t\t\t\t<input type='email' name=email placeholder=\"\u0412\u0430\u0448 e-mail\">\n\t\t\t\t\t\t\t<textarea name=message placeholder=\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 rows=2></textarea>\n\t\t\t\t\t\t\t<button class=\"button button-order\">\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u0434\u0438\u0437\u0430\u0439\u043D\u0435\u0440\u0443</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t</div>";
       document.body.appendChild(popup);
       popup.style.display = 'block';
       document.body.style.overflow = 'hidden';
@@ -2892,7 +2912,7 @@ function orderDesign() {
           popup.removeEventListener('click', closePopup);
           popup.getElementsByClassName('popup-close')[0].removeEventListener('click', closePopup);
           form.removeEventListener('input', _validateTelInput__WEBPACK_IMPORTED_MODULE_1__["validateTelInput"]);
-          form.removeEventListener('submit', _onSubmit__WEBPACK_IMPORTED_MODULE_2__["onSubmit"]);
+          form.removeEventListener('submit', _onSubmit__WEBPACK_IMPORTED_MODULE_3__["onSubmit"]);
           document.body.removeChild(popup);
           document.body.style.overflow = '';
         }
@@ -2900,8 +2920,15 @@ function orderDesign() {
 
       popup.addEventListener('click', closePopup);
       popup.getElementsByClassName('popup-close')[0].addEventListener('click', closePopup);
-      form.addEventListener('input', _validateTelInput__WEBPACK_IMPORTED_MODULE_1__["validateTelInput"]);
-      form.addEventListener('submit', _onSubmit__WEBPACK_IMPORTED_MODULE_2__["onSubmit"]);
+      form.addEventListener('input', function (evt) {
+        Object(_validateTelInput__WEBPACK_IMPORTED_MODULE_1__["validateTelInput"])(evt);
+        Object(_validateTextInput__WEBPACK_IMPORTED_MODULE_2__["validateTextInput"])(evt);
+      });
+      form.addEventListener('change', function (evt) {
+        Object(_validateTelInput__WEBPACK_IMPORTED_MODULE_1__["validateTelInput"])(evt);
+        Object(_validateTextInput__WEBPACK_IMPORTED_MODULE_2__["validateTextInput"])(evt);
+      });
+      form.addEventListener('submit', _onSubmit__WEBPACK_IMPORTED_MODULE_3__["onSubmit"]);
     });
   });
 }
@@ -2985,10 +3012,51 @@ function validateTelInput(event) {
       event.target.oldValue = '';
     }
 
-    if (/^\+?[()\d \-]*$/.test(event.target.value) || event.target.value === '') {
+    if (/^(\+7|8)\ *\-?\ *\(?\ *\d{3}\ *\)?\ *\-?\ *\d{3}\ *\-?\ *\d{2}\ *\-?\ *\d{2}$/.test(event.target.value.trim())) {
+      // event.target.oldValue = event.target.value;
+      event.target.classList.add('valid');
+      event.target.classList.remove('invalid');
+      setTimeout(function () {
+        event.target.classList.remove('valid');
+      }, 1500);
+    } else {
+      // event.target.value = event.target.oldValue;
+      event.target.classList.add('invalid');
+      event.target.classList.remove('valid');
+    }
+  }
+}
+
+/***/ }),
+
+/***/ "./src/js/validateTextInput.js":
+/*!*************************************!*\
+  !*** ./src/js/validateTextInput.js ***!
+  \*************************************/
+/*! exports provided: validateTextInput */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateTextInput", function() { return validateTextInput; });
+/* harmony import */ var core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es6.function.name */ "./node_modules/core-js/modules/es6.function.name.js");
+/* harmony import */ var core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_function_name__WEBPACK_IMPORTED_MODULE_0__);
+
+
+
+function validateTextInput(event) {
+  if (event.target.type !== 'password' && event.target.name !== 'password' && event.target.type !== 'tel' && event.target.name !== 'tel' && event.target.name !== 'phone' && event.target.type !== 'email' && event.target.name !== 'email') {
+    if (!event.target.oldValue) {
+      event.target.oldValue = '';
+    }
+
+    if (event.target.value === '' || /^[\u0020-\u0040\u005b-\u0060\u007b-\u007e\u0400-\u04ff]+$/gm.test(event.target.value)) {
+      // сработает только на кирилицу(всю) и всякие скобки цифры знаки
       event.target.oldValue = event.target.value;
+      event.target.classList.remove('invalid');
     } else {
       event.target.value = event.target.oldValue;
+      event.target.classList.add('invalid');
     }
   }
 }

@@ -1,6 +1,7 @@
 'use strict';
 
 import {validateTelInput} from "./validateTelInput";
+import {validateTextInput} from "./validateTextInput";
 import {onSubmit} from "./onSubmit";
 
 export function orderDesign() {
@@ -26,8 +27,8 @@ export function orderDesign() {
 					<div class=main-form>
 						<div class=form>
 							<input type=text name=name placeholder="Ваше имя" required>
-							<input type=text name=phone placeholder="Ваш телефон" required>
-							<input type=text name=email placeholder="Ваш e-mail">
+							<input type=text name=phone placeholder="Ваш телефон +7 (999) 999-99-99" required>
+							<input type='email' name=email placeholder="Ваш e-mail">
 							<textarea name=message placeholder=Комментарий rows=2></textarea>
 							<button class="button button-order">Отправить дизайнеру</button>
 						</div>
@@ -56,7 +57,14 @@ export function orderDesign() {
       popup.addEventListener('click', closePopup);
       popup.getElementsByClassName('popup-close')[0].addEventListener('click', closePopup);
       
-      form.addEventListener('input', validateTelInput);
+      form.addEventListener('input', (evt)=>{
+        validateTelInput (evt);
+        validateTextInput(evt);
+      });
+      form.addEventListener('change', (evt)=>{
+        validateTelInput (evt);
+        validateTextInput(evt);
+      });
       form.addEventListener('submit', onSubmit);
     });
   });

@@ -1149,6 +1149,14 @@ h4 {
   color: inherit;
   resize: none;
 }
+.popup-design .form input .valid,
+.popup-design .form textarea .valid {
+  border: 1px solid #4cae4c;
+}
+.popup-design .form input .invalid,
+.popup-design .form textarea .invalid {
+  border: 1px solid crimson;
+}
 .popup-design .form input::placeholder,
 .popup-design .form textarea::placeholder {
   color: black;
