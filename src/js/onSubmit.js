@@ -35,12 +35,14 @@ export function onSubmit(event) {
     .then(() => {
       // console.log(event.target.parentElement.parentElement.parentElement.parentElement);
       event.target.parentElement.parentElement.parentElement.parentElement.dispatchEvent(new Event('click'));
+      document.body.style.overflow = 'hidden';
       popupSendResult.getElementsByClassName('popup-content')[0].innerHTML = messages.success;
       document.body.appendChild(popupSendResult);
       popupSendResult.style.display = 'block';
       popupSendResult.addEventListener('click', (evt)=>{
         if (evt.target === popupSendResult || evt.target.classList.contains('popup-close')){
           popupSendResult.remove();
+          document.body.style.overflow = '';
         }
       });
     })
