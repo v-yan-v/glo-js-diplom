@@ -23,7 +23,7 @@ export function onSubmit(event) {
   
   let price = event.target.getElementsByClassName('calc-price')[0];
   let file = event.target.querySelector('[type="file"]');
-  if ((price && isNaN(+price.textContent)) || ( file && (file.value === ''))){
+  if ((price && isNaN(+price.textContent))/* || ( file && (file.value === ''))*/){
     return;
   }
   
