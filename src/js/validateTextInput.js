@@ -4,7 +4,7 @@ export function validateTextInput(event) {
   if ((event.target.type !== 'password') && (event.target.name !== 'password') &&
       (event.target.type !== 'tel') && (event.target.name !== 'tel') && (event.target.name !== 'phone') &&
       (event.target.type !== 'email') && (event.target.name !== 'email') &&
-      (event.target.tagName !== 'SELECT') && (event.target.type !== 'file') )
+      (event.target.tagName !== 'SELECT') && (event.target.type !== 'file') && !event.target.classList.contains('promocode'))
   {
     if (!event.target.oldValue) {event.target.oldValue = '';}
     
