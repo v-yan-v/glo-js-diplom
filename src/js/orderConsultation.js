@@ -18,14 +18,14 @@ export function orderConsultation() {
           <button class=popup-close>&times;</button>
           <div class=popup-content>
             <h4>Остались вопросы? Закажите обратный звонок</h4>
-            <div class=main-form>
+            <!--<div class=main-form>-->
               <form class="form" action="mailer/smart.php" method="POST">
                 <input type=text name=name placeholder="Ваше имя" required>
                 <input type=text name=phone placeholder="Ваш телефон +7 (999) 999-99-99" required>
                 <!--<button class="button button-order" onclick="yaCounter46630539.reachGoal('btn-consultation'); return true;">Получить консультацию</button>-->
                 <button class="button button-order">Получить консультацию</button>
               </form>
-            </div>
+            <!--</div>-->
           </div>
         </div>`;
   

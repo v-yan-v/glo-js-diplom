@@ -2759,6 +2759,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onSubmit", function() { return onSubmit; });
 /* harmony import */ var core_js_modules_es6_promise__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es6.promise */ "./node_modules/core-js/modules/es6.promise.js");
 /* harmony import */ var core_js_modules_es6_promise__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_promise__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/web.dom.iterable */ "./node_modules/core-js/modules/web.dom.iterable.js");
+/* harmony import */ var core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_iterable__WEBPACK_IMPORTED_MODULE_1__);
+
 
 
 
@@ -2777,16 +2780,18 @@ function onSubmit(event) {
   var price = event.target.getElementsByClassName('calc-price')[0];
   var file = event.target.querySelector('[type="file"]');
 
-  if (price && isNaN(+price.textContent) || file && file.value === '') {
-    return;
-  }
+  if (price && isNaN(+price.textContent))
+    /* || ( file && (file.value === ''))*/
+    {
+      return;
+    }
 
   sendFormData(new FormData(event.target)).then(function () {
     event.target.appendChild(statusMsg);
     statusMsg.innerHTML = messages.sending;
   }).then(function () {
     // console.log(event.target.parentElement.parentElement.parentElement.parentElement);
-    event.target.parentElement.parentElement.parentElement.parentElement.dispatchEvent(new Event('click'));
+    event.target.parentElement.parentElement.parentElement.dispatchEvent(new Event('click'));
     document.body.style.overflow = 'hidden';
     popupSendResult.getElementsByClassName('popup-content')[0].innerHTML = messages.success;
     document.body.appendChild(popupSendResult);
@@ -2798,7 +2803,8 @@ function onSubmit(event) {
       }
     });
   }).catch(function () {
-    event.target.parentElement.parentElement.parentElement.parentElement.dispatchEvent(new Event('click'));
+    event.target.parentElement.parentElement.parentElement.dispatchEvent(new Event('click'));
+    document.body.style.overflow = 'hidden';
     popupSendResult.getElementsByClassName('popup-content')[0].innerHTML = messages.fail;
     document.body.appendChild(popupSendResult);
     popupSendResult.style.display = 'block';
@@ -2807,8 +2813,14 @@ function onSubmit(event) {
         popupSendResult.remove();
       }
     });
+  }); // event.target.dispatchEvent(new Event('reset')); // не работает на формах хрома
+
+  [].forEach.call(event.target.getElementsByTagName('INPUT'), function (el) {
+    el.value = '';
   });
-  event.target.dispatchEvent(new Event('reset'));
+  [].forEach.call(event.target.getElementsByTagName('TEXTAREA'), function (el) {
+    el.value = '';
+  });
   setTimeout(function () {
     statusMsg.innerHTML = '';
     statusMsg.remove();
@@ -2863,7 +2875,7 @@ function orderConsultation() {
     el.addEventListener('click', function () {
       document.isAnyButtonPushed = true;
       popup.classList.add('popup-consultation');
-      popup.innerHTML = "\n        <div class=popup-dialog>\n          <button class=popup-close>&times;</button>\n          <div class=popup-content>\n            <h4>\u041E\u0441\u0442\u0430\u043B\u0438\u0441\u044C \u0432\u043E\u043F\u0440\u043E\u0441\u044B? \u0417\u0430\u043A\u0430\u0436\u0438\u0442\u0435 \u043E\u0431\u0440\u0430\u0442\u043D\u044B\u0439 \u0437\u0432\u043E\u043D\u043E\u043A</h4>\n            <div class=main-form>\n              <form class=\"form\" action=\"mailer/smart.php\" method=\"POST\">\n                <input type=text name=name placeholder=\"\u0412\u0430\u0448\u0435 \u0438\u043C\u044F\" required>\n                <input type=text name=phone placeholder=\"\u0412\u0430\u0448 \u0442\u0435\u043B\u0435\u0444\u043E\u043D +7 (999) 999-99-99\" required>\n                <!--<button class=\"button button-order\" onclick=\"yaCounter46630539.reachGoal('btn-consultation'); return true;\">\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043A\u043E\u043D\u0441\u0443\u043B\u044C\u0442\u0430\u0446\u0438\u044E</button>-->\n                <button class=\"button button-order\">\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043A\u043E\u043D\u0441\u0443\u043B\u044C\u0442\u0430\u0446\u0438\u044E</button>\n              </form>\n            </div>\n          </div>\n        </div>";
+      popup.innerHTML = "\n        <div class=popup-dialog>\n          <button class=popup-close>&times;</button>\n          <div class=popup-content>\n            <h4>\u041E\u0441\u0442\u0430\u043B\u0438\u0441\u044C \u0432\u043E\u043F\u0440\u043E\u0441\u044B? \u0417\u0430\u043A\u0430\u0436\u0438\u0442\u0435 \u043E\u0431\u0440\u0430\u0442\u043D\u044B\u0439 \u0437\u0432\u043E\u043D\u043E\u043A</h4>\n            <!--<div class=main-form>-->\n              <form class=\"form\" action=\"mailer/smart.php\" method=\"POST\">\n                <input type=text name=name placeholder=\"\u0412\u0430\u0448\u0435 \u0438\u043C\u044F\" required>\n                <input type=text name=phone placeholder=\"\u0412\u0430\u0448 \u0442\u0435\u043B\u0435\u0444\u043E\u043D +7 (999) 999-99-99\" required>\n                <!--<button class=\"button button-order\" onclick=\"yaCounter46630539.reachGoal('btn-consultation'); return true;\">\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043A\u043E\u043D\u0441\u0443\u043B\u044C\u0442\u0430\u0446\u0438\u044E</button>-->\n                <button class=\"button button-order\">\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043A\u043E\u043D\u0441\u0443\u043B\u044C\u0442\u0430\u0446\u0438\u044E</button>\n              </form>\n            <!--</div>-->\n          </div>\n        </div>";
       document.body.appendChild(popup);
       popup.style.display = 'block';
       document.body.style.overflow = 'hidden';
@@ -2930,7 +2942,7 @@ function orderDesign() {
     el.addEventListener('click', function () {
       document.isAnyButtonPushed = true;
       popup.classList.add('popup-design');
-      popup.innerHTML = "\n        <div class=popup-dialog>\n      <button class=popup-close>&times;</button>\n      <div class=popup-content>\n\t\t\t\t<form action=\"/\" method=\"POST\" enctype=\"multipart/form-data\">\n\t\t\t\t\t<h4>\u0417\u0430\u043A\u0430\u0437\u0430\u0442\u044C \u0434\u0438\u0437\u0430\u0439\u043D \u043F\u043E\u0440\u0442\u0440\u0435\u0442\u0430</h4>\n\t\t\t\t\t<div class=file_upload>\n\t\t\t\t\t\t<button type=button>\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u044E</button>\n\t\t\t\t\t\t<div>\u0424\u0430\u0439\u043B \u043D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D</div>\n\t\t\t\t\t\t<input type=file name=upload>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=main-form>\n\t\t\t\t\t\t<div class=form>\n\t\t\t\t\t\t\t<input type=text name=name placeholder=\"\u0412\u0430\u0448\u0435 \u0438\u043C\u044F\" required>\n\t\t\t\t\t\t\t<input type=text name=phone placeholder=\"\u0412\u0430\u0448 \u0442\u0435\u043B\u0435\u0444\u043E\u043D +7 (999) 999-99-99\" required>\n\t\t\t\t\t\t\t<input type='email' name=email placeholder=\"\u0412\u0430\u0448 e-mail\">\n\t\t\t\t\t\t\t<textarea name=message placeholder=\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 rows=2></textarea>\n\t\t\t\t\t\t\t<button class=\"button button-order\">\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u0434\u0438\u0437\u0430\u0439\u043D\u0435\u0440\u0443</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t</div>";
+      popup.innerHTML = "\n      <div class=popup-dialog>\n      <button class=popup-close>&times;</button>\n      <div class=popup-content>\n\t\t\t\t<form action=\"/\" method=\"POST\" enctype=\"multipart/form-data\">\n\t\t\t\t\t<h4>\u0417\u0430\u043A\u0430\u0437\u0430\u0442\u044C \u0434\u0438\u0437\u0430\u0439\u043D \u043F\u043E\u0440\u0442\u0440\u0435\u0442\u0430</h4>\n\t\t\t\t\t<div class=file_upload>\n\t\t\t\t\t\t<button type=button>\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0444\u043E\u0442\u043E\u0433\u0440\u0430\u0444\u0438\u044E</button>\n\t\t\t\t\t\t<div>\u0424\u0430\u0439\u043B \u043D\u0435 \u0432\u044B\u0431\u0440\u0430\u043D</div>\n\t\t\t\t\t\t<input type=file name=upload>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=main-form>\n\t\t\t\t\t\t<div class=form>\n\t\t\t\t\t\t\t<input type=text name=name placeholder=\"\u0412\u0430\u0448\u0435 \u0438\u043C\u044F\" required>\n\t\t\t\t\t\t\t<input type=text name=phone placeholder=\"\u0412\u0430\u0448 \u0442\u0435\u043B\u0435\u0444\u043E\u043D +7 (999) 999-99-99\" required>\n\t\t\t\t\t\t\t<input type='email' name=email placeholder=\"\u0412\u0430\u0448 e-mail\">\n\t\t\t\t\t\t\t<textarea name=message placeholder=\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 rows=2></textarea>\n\t\t\t\t\t\t\t<button class=\"button button-order\">\u041E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u0434\u0438\u0437\u0430\u0439\u043D\u0435\u0440\u0443</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</form>\n\t\t\t</div>\n\t\t</div>";
       document.body.appendChild(popup);
       popup.style.display = 'block';
       document.body.style.overflow = 'hidden';

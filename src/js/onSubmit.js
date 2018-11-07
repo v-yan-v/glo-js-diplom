@@ -34,7 +34,7 @@ export function onSubmit(event) {
     })
     .then(() => {
       // console.log(event.target.parentElement.parentElement.parentElement.parentElement);
-      event.target.parentElement.parentElement.parentElement.parentElement.dispatchEvent(new Event('click'));
+      event.target.parentElement.parentElement.parentElement.dispatchEvent(new Event('click'));
       document.body.style.overflow = 'hidden';
       popupSendResult.getElementsByClassName('popup-content')[0].innerHTML = messages.success;
       document.body.appendChild(popupSendResult);
@@ -47,7 +47,8 @@ export function onSubmit(event) {
       });
     })
     .catch(() => {
-      event.target.parentElement.parentElement.parentElement.parentElement.dispatchEvent(new Event('click'));
+      event.target.parentElement.parentElement.parentElement.dispatchEvent(new Event('click'));
+      document.body.style.overflow = 'hidden';
       popupSendResult.getElementsByClassName('popup-content')[0].innerHTML = messages.fail;
       document.body.appendChild(popupSendResult);
       popupSendResult.style.display = 'block';
@@ -58,7 +59,9 @@ export function onSubmit(event) {
       });
     });
   
-  event.target.dispatchEvent(new Event('reset'));
+  // event.target.dispatchEvent(new Event('reset')); // не работает на формах хрома
+  [].forEach.call(event.target.getElementsByTagName('INPUT'), (el)=>{ el.value = '';});
+  [].forEach.call(event.target.getElementsByTagName('TEXTAREA'), (el)=>{ el.value = '';});
   
   setTimeout(() => {
     statusMsg.innerHTML = '';

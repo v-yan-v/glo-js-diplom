@@ -14,7 +14,7 @@ export function orderDesign() {
   
       popup.classList.add('popup-design');
       popup.innerHTML = `
-        <div class=popup-dialog>
+      <div class=popup-dialog>
       <button class=popup-close>&times;</button>
       <div class=popup-content>
 				<form action="/" method="POST" enctype="multipart/form-data">
