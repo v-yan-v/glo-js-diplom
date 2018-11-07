@@ -969,8 +969,14 @@ h4 {
   margin-bottom: 3rem;
 }
 .consultation input::placeholder {
-  color: black;
+  color: #404040;
   font-family: 'Circe Bold', sans-serif;
+}
+.consultation input.valid {
+  border: 1px solid #4cae4c;
+}
+.consultation input.invalid {
+  border: 1px solid crimson;
 }
 .consultation .input-text {
   display: block;
@@ -1048,9 +1054,17 @@ h4 {
   color: inherit;
   resize: none;
 }
+.popup-consultation .form input.valid,
+.popup-consultation .form textarea.valid {
+  border: 1px solid #4cae4c;
+}
+.popup-consultation .form input.invalid,
+.popup-consultation .form textarea.invalid {
+  border: 1px solid crimson;
+}
 .popup-consultation .form input::placeholder,
 .popup-consultation .form textarea::placeholder {
-  color: black;
+  color: #404040;
   text-align: center;
   font-family: 'Circe Bold', sans-serif;
 }
@@ -1149,17 +1163,17 @@ h4 {
   color: inherit;
   resize: none;
 }
-.popup-design .form input .valid,
-.popup-design .form textarea .valid {
+.popup-design .form input.valid,
+.popup-design .form textarea.valid {
   border: 1px solid #4cae4c;
 }
-.popup-design .form input .invalid,
-.popup-design .form textarea .invalid {
+.popup-design .form input.invalid,
+.popup-design .form textarea.invalid {
   border: 1px solid crimson;
 }
 .popup-design .form input::placeholder,
 .popup-design .form textarea::placeholder {
-  color: black;
+  color: #404040;
   text-align: center;
   font-family: 'Circe Bold', sans-serif;
 }
@@ -1183,8 +1197,8 @@ h4 {
 }
 .popup-close {
   position: absolute;
-  top: -8%;
-  right: -5%;
+  top: -4rem;
+  right: -1.5rem;
   font-size: 5rem;
   width: 5rem;
   height: 5rem;
